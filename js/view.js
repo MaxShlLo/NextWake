@@ -1,22 +1,15 @@
 // js/view.js
 import { getState } from './state.js';
 
-/**
- * Функція для малювання списку будильників на головній сторінці
- */
 export const renderAlarms = () => {
-    // Шукаємо на сторінці місце, куди будемо вставляти будильники
     const alarmsContainer = document.getElementById('alarmsList');
     
-    // Якщо такого елемента немає (наприклад, ми на сторінці Входу), просто виходимо
     if (!alarmsContainer) return;
 
     const state = getState();
-    
-    // Фільтруємо будильники: беремо ТІЛЬКИ ті, що належать поточному користувачу
+
     const userAlarms = state.alarms.filter(alarm => alarm.ownerEmail === state.currentUser);
 
-    // Якщо будильників немає, показуємо заглушку (Alert)
     if (userAlarms.length === 0) {
         alarmsContainer.innerHTML = `
             <div class="alert alert-secondary text-center" role="alert">
@@ -26,9 +19,8 @@ export const renderAlarms = () => {
         return;
     }
 
-    // Перетворюємо масив об'єктів на один великий рядок HTML-коду
+
     const alarmsHTML = userAlarms.map(alarm => {
-        // Якщо будильник увімкнено - колір тексту зелений, якщо вимкнено - сірий
         const timeColorClass = alarm.isActive ? 'text-success' : 'text-secondary';
         const dateText = alarm.date ? alarm.date : 'Щодня';
         
@@ -51,16 +43,12 @@ export const renderAlarms = () => {
                 </div>
             </div>
         `;
-    }).join(''); // Зшиваємо всі шматочки масиву в один суцільний текст
+    }).join('');
 
-    // Вставляємо готовий HTML на сторінку
     alarmsContainer.innerHTML = `<div class="list-group">${alarmsHTML}</div>`;
 };
 
 
-/**
- * Функція для малювання даних користувача на сторінці Профілю
- */
 export const renderProfile = () => {
     const profileContainer = document.getElementById('profileTableBody');
     if (!profileContainer) return;
@@ -70,7 +58,6 @@ export const renderProfile = () => {
 
     if (!user) return;
 
-    // Заповнюємо таблицю даними
     profileContainer.innerHTML = `
         <tr><th scope="row" style="width: 40%;">Ім'я:</th><td>${user.name}</td></tr>
         <tr><th scope="row">Email:</th><td>${user.email}</td></tr>
