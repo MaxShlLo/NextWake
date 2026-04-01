@@ -58,6 +58,24 @@
 
     </main>
 
+<div class="modal fade" id="alarmModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content bg-dark text-white border-success">
+                <div class="modal-header border-secondary">
+                    <h5 class="modal-title text-success">⏰ БУДИЛЬНИК!</h5>
+                </div>
+                <div class="modal-body text-center py-4">
+                    <h1 class="display-1 text-success fw-bold" id="modalAlarmTime">00:00</h1>
+                    <p class="lead mt-3" id="modalAlarmMessage">Просинайся!</p>
+                </div>
+                <div class="modal-footer border-secondary justify-content-center">
+                    <button type="button" class="btn btn-success btn-lg w-50" data-bs-dismiss="modal">Я ПРОКИНУВСЯ!</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
     <footer class="bg-dark text-white text-center py-3 mt-auto border-top border-secondary">
         <div class="container">
             <p class="mb-0">&copy; 2026 NextWake. Просинайся вчасно.</p>
