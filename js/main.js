@@ -126,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
             return false;
         });
 
-        // Якщо такі будильники знайшлися
         alarmsToRing.forEach(alarm => {
             toggleAlarm(alarm.id); 
             
@@ -137,33 +136,26 @@ document.addEventListener('DOMContentLoaded', () => {
             const ringtone = new Audio('al.mp3'); 
             ringtone.loop = true; 
             
-            // Функція, яка заповнює і показує красиве модальне вікно
             const showAlarmModal = (isAudioBlocked = false) => {
                 const modalElement = document.getElementById('alarmModal');
-                if (!modalElement) return; // Якщо ми не на головній сторінці, просто виходимо
+                if (!modalElement) return;
 
-                // Вставляємо актуальний час і текст
                 document.getElementById('modalAlarmTime').innerText = alarm.time;
                 document.getElementById('modalAlarmMessage').innerText = 
                     isAudioBlocked ? `Просинайся, ${state.currentUser}!\n(Звук заблоковано)` : `Просинайся, ${state.currentUser}!`;
 
-                // Викликаємо вікно через інструменти Bootstrap
                 const bsModal = new bootstrap.Modal(modalElement);
                 bsModal.show();
 
-                // Коли користувач натисне "Я ПРОКИНУВСЯ!" (вікно закриється) -> вимикаємо музику
                 modalElement.addEventListener('hidden.bs.modal', () => {
                     ringtone.pause();
-                    ringtone.currentTime = 0; // Скидаємо трек на початок
-                }, { once: true }); // once: true означає, що цей слухач спрацює лише 1 раз
+                    ringtone.currentTime = 0;
+                }, { once: true });
             };
 
-            // Пробуємо запустити музику
             ringtone.play().then(() => {
-                // Звук пішов! Одразу показуємо вікно (ніяких setTimeout більше не треба!)
                 showAlarmModal(false);
             }).catch(error => {
-                // Якщо браузер заблокував звук - все одно показуємо вікно
                 console.log("Браузер заблокував звук:", error);
                 showAlarmModal(true);
             });
