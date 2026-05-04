@@ -101,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     // 5. БУДИЛЬНИК
 
     setInterval(() => {
